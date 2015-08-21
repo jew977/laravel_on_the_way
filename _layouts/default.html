@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>{% if page.title %}{{ page.title }} - {% endif %}Laravel doc for SK-Media</title>
+        <meta name="description" content="{{ page.description }}"/>
+        <meta name="robots" content="index,follow,archive"/>
+        <meta property="og:type" content="website"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <link href='//fonts.useso.com/css?family=Alfa+Slab+One|Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ site.baseurl }}styles/all.css"/>
+        <link rel="stylesheet" href="{{ site.baseurl }}styles/print.css" media="print, handheld"/>
+        <link rel="stylesheet" href="{{ site.baseurl }}styles/syntax.css"/>
+        <link rel="icon" href="{{ site.baseurl }}images/favicon.png" type="image/png"/>
+        <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-53903425-3']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        </script>
+    </head>
+    <body>
+        <nav class="site-navigation">
+            <div class="build-date">Last Updated: {{ site.time | date: "%F %R" }}</div>
+            <ul>
+
+                <li>
+                    <h3>Laravel doc for SK-Media</h3>
+                    <a href="http://sk-media.github.io/laravel-the-hard-way/" target="_blank"><img src="http://oauth.gangtai.org/assets/img/logo_ai.jpg" style="width: 50px; margin: 6px 0;"></a>
+                </li>
+
+                <li><a href="{{ site.baseurl }}#site-header">欢迎</a>
+                    <ul>
+                        <li><a href="{{ site.baseurl }}#how-to-contribute">如何贡献</a></li>
+                    </ul>
+                </li>
+                {% assign lastIsChild = false %}
+                {% for post in site.posts reversed %}
+                    {% if post.isChild != true %}
+                        {% if insideSection %}
+                            </ul>
+                            </li>
+                            {% assign insideSection = false %}
+                        {% endif %}
+                    {% endif %}
+                    <li><a href="{{ site.baseurl }}#{{ post.anchor }}">{{ post.title }}</a>
+                    {% if post.isChild %}
+                        </li>
+                    {% else %}
+                        <ul>
+                        {% assign insideSection = true %}
+                    {% endif %}
+                    {% assign lastIsChild = post.isChild %}
+                {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="site-content">
+
+            <a class="fork-me" href="https://github.com/sk-media/laravel-the-hard-way">
+                <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+            </a>
+
+            <header class="site-header" id="site-header">
+                <hgroup>
+                    <h1 class="site-title"><a href="{{ site.baseurl }}">Laravel</a></h1>
+                    <h2 class="site-slogan">The Hard Way.</h2>
+                </hgroup>
+            </header>
+            {{ content }}
+        </div>
+
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script src="scripts/setup.js"></script>
+    </body>
+</html>
